@@ -1,0 +1,27 @@
+<html>
+    <head>
+    <div class="content-width">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Home</title>
+    </head>
+    <body>
+        <h1>Project Reads</h1>
+        <h2>Register</h2>
+        <p>New? Register here!</p>
+        <p>Registering an account will allow you to save books into lists, and more!</p>
+        <a href="register">Register</a>
+        <p>&nbsp;</p>
+        <h2>Login</h2>
+        <p>Already Registered? Login here!</p>
+        <a href="login">Login</a>
+        {% if current_user.is_authenticated %}
+        <div>
+            <h1>You are already logged in!</h1>
+            <a href="/browse">Click here to browse books.</a>
+            <p>&nbsp;</p>
+            <a href="/logout">Logout</a>
+        </div>
+        {% endif %}
+    </body>
+</html>
