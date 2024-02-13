@@ -58,7 +58,7 @@ def browse():
 
     return render_template("browse.html", books = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + 
                                                              random.choice('abcdefghijklmnopqrstuvwxyz') + 
-                                                             "&maxResults=20&key=AIzaSyDmXuCF3_31gS42MCu2NkpnFMCUnSyPdDs").json())
+                                                             "&maxResults=20&key=").json())
 
 
 @app.route('/register', methods=["GET", "POST"])
