@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, json, redirect, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
+from dotenv import load_dotenv
 import sqlite3 as sql
 import os
 import random
@@ -10,8 +11,9 @@ import requests
 #code based on : https://www.geeksforgeeks.org/how-to-add-authentication-to-your-app-with-flask-login/
 
 app = Flask(__name__)
+load_dotenv()
 
-
+API_KEY = os.getenv('API_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 app.config["SECRET_KEY"] = 'ARISTENAYWFUL'
 db = SQLAlchemy()
@@ -57,7 +59,7 @@ def browse():
 
     return render_template("browse.html", books = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + 
                                                              random.choice('abcdefghijklmnopqrstuvwxyz') + 
-                                                             "&maxResults=20&key=").json())
+                                                             f"&maxResults=20&key={API_KEY}").json())
 
 
 @app.route('/register', methods=["GET", "POST"])
