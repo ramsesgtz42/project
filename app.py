@@ -5,7 +5,6 @@ import sqlite3 as sql
 import os
 import random
 import requests
-from flask_mail import Mail, Message
 
 #Citation
 #code based on : https://www.geeksforgeeks.org/how-to-add-authentication-to-your-app-with-flask-login/
