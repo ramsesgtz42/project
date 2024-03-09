@@ -6,6 +6,7 @@ import sqlite3 as sql
 import os
 import random
 import requests
+import time
 
 #Citation
 #code based on : https://www.geeksforgeeks.org/how-to-add-authentication-to-your-app-with-flask-login/
@@ -60,7 +61,14 @@ def browse():
     return render_template("browse.html", books = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + 
                                                              random.choice('abcdefghijklmnopqrstuvwxyz') + 
                                                              f"&maxResults=20&key={API_KEY}").json())
-
+@app.route('/purchase/<int:id>')
+def purchase(id):
+    with open('/Users/ramses/Documents/OSU/CS 361 /microservice/Microservice2-Docs/isbnPipeLine.txt', 'w') as writer:
+        writer.write(id)
+    time.sleep(5)
+    with open('/Users/ramses/Documents/OSU/CS 361 /microservice/Microservice2-Docs/isbnPipeLine.txt', 'r') as reader:
+        url = reader.read()
+    return redirect(url)
 
 @app.route('/register', methods=["GET", "POST"])
 def register():

@@ -21,12 +21,15 @@
                     <thead>
                         <tr>
                             <th>Title</th>
+                            <th>Author</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for book in books["items"] %}
                             <tr>
                                 <td>{{book.volumeInfo.title}}</td>
+                                <td>{{book.volumeInfo.authors.0}}</td>
+                                <td><a href="purchase/{{book.volumeInfo.industryIdentifiers.0.identifier}}" class="btn btn-default">Purchase</a></td>
                             </tr>
                         {%endfor%}
                     </tbody>
