@@ -14,7 +14,7 @@ import time
 app = Flask(__name__)
 load_dotenv()
 
-API_KEY = os.getenv('API_KEY')
+APIKEY = os.getenv('API_KEY')
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 app.config["SECRET_KEY"] = 'ARISTENAYWFUL'
 db = SQLAlchemy()
@@ -60,11 +60,11 @@ def browse():
 
     return render_template("browse.html", books = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + 
                                                              random.choice('abcdefghijklmnopqrstuvwxyz') + 
-                                                             f"&maxResults=20&key={API_KEY}").json())
+                                                             f"&maxResults=20&key={APIKEY}").json())
 @app.route('/purchase/<int:id>')
 def purchase(id):
     with open('/Users/ramses/Documents/OSU/CS 361 /microservice/Microservice2-Docs/isbnPipeLine.txt', 'w') as writer:
-        writer.write(id)
+        writer.write(str(id))
     time.sleep(5)
     with open('/Users/ramses/Documents/OSU/CS 361 /microservice/Microservice2-Docs/isbnPipeLine.txt', 'r') as reader:
         url = reader.read()

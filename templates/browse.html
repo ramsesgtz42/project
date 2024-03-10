@@ -28,8 +28,14 @@
                         {% for book in books["items"] %}
                             <tr>
                                 <td>{{book.volumeInfo.title}}</td>
-                                <td>{{book.volumeInfo.authors.0}}</td>
-                                <td><a href="purchase/{{book.volumeInfo.industryIdentifiers.0.identifier}}" class="btn btn-default">Purchase</a></td>
+                                {% if book.volumeInfo.authors %}
+                                    <td>{{book.volumeInfo.authors.0}}</td>
+                                {% else %}
+                                    <td>No Listed Author</td>
+                                {% endif %}
+                                {% if book.volumeInfo.industryIdentifiers %}
+                                    <td><a href="purchase/{{book.volumeInfo.industryIdentifiers[0].identifier}}" class="btn btn-default">Purchase</a></td>
+                                {% endif %}
                             </tr>
                         {%endfor%}
                     </tbody>
