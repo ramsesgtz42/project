@@ -55,8 +55,13 @@ def root():
     return render_template("home.html")
 
 
-@app.route('/browse')
+@app.route('/browse', methods=["GET", "POST"])
 def browse():
+    if request.method == "POST":
+        query = request.form.get("query")
+        return render_template("browse.html", books = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + 
+                                                             query + 
+                                                             f"&maxResults=20&key={APIKEY}").json())
 
     return render_template("browse.html", books = requests.get("https://www.googleapis.com/books/v1/volumes?q=" + 
                                                              random.choice('abcdefghijklmnopqrstuvwxyz') + 
@@ -65,9 +70,10 @@ def browse():
 def purchase(id):
     with open('/Users/ramses/Documents/OSU/CS 361 /microservice/Microservice2-Docs/isbnPipeLine.txt', 'w') as writer:
         writer.write(str(id))
-    time.sleep(5)
-    with open('/Users/ramses/Documents/OSU/CS 361 /microservice/Microservice2-Docs/isbnPipeLine.txt', 'r') as reader:
+    time.sleep(6)
+    with open('/Users/ramses/Documents/OSU/CS 361 /microservice/Microservice2-Docs/isbnPipeLine.txt', 'r+') as reader:
         url = reader.read()
+        reader.truncate(0)
     return redirect(url)
 
 @app.route('/register', methods=["GET", "POST"])

@@ -4,6 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Browse</title>
+    <script>
+        function confirmRedirect() {
+            if (confirm("You will be redirected to Amazon.com, is this ok?")) {
+                return True;
+            } else {
+                return False;
+            }
+            }
+    </script>
     </head>
     <body>
         <header>
@@ -15,6 +24,13 @@
             </div>
         </header>
         <main>
+            <form method="post">
+                <fieldset>
+                    <legend>Search here!</legend>
+                    <input autofocus placeholder="Enter Book Title Here" id="query" name="query" type="text"/>
+                    <br><button type="submit">Submit Search</button>
+                </fieldset>
+            </form>
             <section>
                 <p>&nbsp;</p>
                 <table>
@@ -34,7 +50,7 @@
                                     <td>No Listed Author</td>
                                 {% endif %}
                                 {% if book.volumeInfo.industryIdentifiers %}
-                                    <td><a href="purchase/{{book.volumeInfo.industryIdentifiers[0].identifier}}" class="btn btn-default">Purchase</a></td>
+                                    <td><a href="purchase/{{book.volumeInfo.industryIdentifiers[0].identifier}}" class="btn btn-default" onclick="return confirmRedirect()">Purchase</a></td>
                                 {% endif %}
                             </tr>
                         {%endfor%}
